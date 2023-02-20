@@ -79,11 +79,40 @@ RSpec.describe Item, type: :model do
         @item.valid?
         expect(@item.errors.full_messages).to include('User must exist')
       end
+      it 'item_categoryで「---」が選択されていると保存できない' do
+        @item.item_category_id = '1'
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Item category can't be blank")
+      end
+      it 'item_stateで「---」が選択されていると保存できない' do
+        @item.item_state_id = '1'
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Item state can't be blank")
+      end     
+      it 'delivery_burdenで「---」が選択されていると保存できない' do
+        @item.delivery_burden_id = '1'
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Delivery burden can't be blank")
+      end   
+      it 'delivery_areaで「---」が選択されていると保存できない' do
+        @item.delivery_area_id = '1'
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Delivery area can't be blank")
+      end   
+      it 'delivery_dayで「---」が選択されていると保存できない' do
+        @item.delivery_day_id = '1'
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Delivery day can't be blank")
+      end    
+      it 'item_priceは小数では保存できない' do
+        @item.item_price = '0.1'
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Item price must be an integer")
+      end
     end
   end
 
 end
-
 
 
 
