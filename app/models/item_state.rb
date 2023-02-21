@@ -6,10 +6,7 @@ class ItemState < ActiveHash::Base
     { id: 4, name: '目立った傷や汚れなし' },
     { id: 5, name: 'やや傷や汚れあり' },
     { id: 6, name: '傷や汚れあり' },
-    { id: 7, name: '全体的に状態が悪い' },
-    { id: 8, name: 'スポーツ' },
-    { id: 9, name: 'グルメ' },
-    { id: 10, name: 'その他' }
+    { id: 7, name: '全体的に状態が悪い' }
   ]
 
   include ActiveHash::Associations
