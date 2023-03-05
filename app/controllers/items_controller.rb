@@ -24,13 +24,10 @@ def show
 end
 
 def edit
-<<<<<<< HEAD
   if @item.user_id == current_user.id && @item.order.nil?
   else
      redirect_to root_path
   end
-=======
->>>>>>> 808e169af8448d3a1abd14ce423bbba0b229b399
 end
 
 def update
