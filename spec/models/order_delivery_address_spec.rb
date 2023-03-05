@@ -2,13 +2,15 @@ require 'rails_helper'
 
 RSpec.describe OrderDeliveryAddress, type: :model do
 
-  before do
-    @order_delivery_address = FactoryBot.build(:order_delivery_address)
-  end
-
-  describe '購入情報の保存' do    
+  describe '購入情報の保存' do
+   before do
+    user = FactoryBot.create(:user)
+    item = FactoryBot.create(:item)
+    @order_delivery_address = FactoryBot.build(:order_delivery_address, user_id: user.id, item_id: item.id)
+    sleep 0.1
+   end
     context '保存できる場合' do
-      it 'postal_code,delivery_area_id,city,block,building_name,phone_number,tokenがあれば保存できる' do
+      it 'postal_code,delivery_area_id,city,block,building_name,phone_number,token,user_id,item_idがあれば保存できる' do
         expect(@order_delivery_address).to be_valid
       end
       it 'building_nameは空でも保存できる' do
@@ -48,8 +50,18 @@ RSpec.describe OrderDeliveryAddress, type: :model do
         @order_delivery_address.valid?
         expect(@order_delivery_address.errors.full_messages).to include("Token can't be blank")
       end
+      it 'user_idが空では保存できない' do
+        @order_delivery_address.user_id = ' '
+        @order_delivery_address.valid?
+        expect(@order_delivery_address.errors.full_messages).to include("User can't be blank")
+      end
+      it 'item_idが空では保存できない' do
+        @order_delivery_address.item_id = ' '
+        @order_delivery_address.valid?
+        expect(@order_delivery_address.errors.full_messages).to include("Item can't be blank")
+      end
       it 'postal_codeは全角数字では保存できない' do
-        @order_delivery_address.postal_code = '３３３-３３３３ '
+        @order_delivery_address.postal_code = '３３３-３３３３'
         @order_delivery_address.valid?
         expect(@order_delivery_address.errors.full_messages).to include("Postal code is invalid")
       end
